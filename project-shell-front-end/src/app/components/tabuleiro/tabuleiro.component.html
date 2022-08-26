@@ -3,6 +3,10 @@
     class="celula"
     *ngFor="let x of largura"
     [id]="'' + x + y"
+    [class.celulaAmiga]="tabuleiroService.campoAmigo[y] === CELULA.amiga"
+    [class.celulaNeutra]="tabuleiroService.campoAmigo[y] === CELULA.neutra"
+    [class.celulaInimiga]="tabuleiroService.campoAmigo[y] === CELULA.inimiga"
+
     [ngStyle]="verificaCelula(x, y) ? tabuleiroService.grid[x][y].style : ''"
   >
     <p>{{verificaCelula(x, y) ? tabuleiroService.grid[x][y].titulo : ''}}</p>
@@ -16,5 +20,8 @@
     draggable="true"
     (dragend)="arrastouCarta($event, carta, indexCarta)"
     [ngStyle]="carta.style"
-  ></div>
+    [matTooltip]="carta.tooltip"
+  >
+    <p>{{carta.titulo}}</p>
+  </div>
 </div>

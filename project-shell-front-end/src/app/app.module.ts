@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import {environment} from "../environments/environment";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 const config: SocketIoConfig = {
   url: environment.socketUrl, // socket server url;
@@ -17,13 +18,14 @@ const config: SocketIoConfig = {
 }
 @NgModule({
   declarations: [AppComponent, TabuleiroComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    DragDropModule,
-    SocketIoModule.forRoot(config),
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        DragDropModule,
+        SocketIoModule.forRoot(config),
+        MatTooltipModule,
+    ],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -3,7 +3,7 @@ import { Carta } from '../../models/Carta';
 import { SocketService } from '../../services/socket.service';
 import { deckCompleto } from '../../data/data';
 import { Jogada } from '../../models/Jogada';
-import { TabuleiroService } from '../../services/tabuleiro.service';
+import { CELULA, TabuleiroService } from '../../services/tabuleiro.service';
 
 @Component({
   selector: 'app-tabuleiro',
@@ -18,15 +18,18 @@ export class TabuleiroComponent implements OnInit {
 
   altura: number[] = [];
   largura: number[] = [];
-  tamanhoX = 7;
-  tamanhoY = 5;
+  CELULA = CELULA;
   mao: Carta[] = [];
 
   ngOnInit(): void {
     this.mao = deckCompleto;
     this.socketService.conectar();
-    this.altura = new Array(this.tamanhoY).fill(1).map((data, index) => index);
-    this.largura = new Array(this.tamanhoX).fill(1).map((data, index) => index);
+    this.altura = new Array(this.tabuleiroService.tamanhoY)
+      .fill(1)
+      .map((data, index) => index);
+    this.largura = new Array(this.tabuleiroService.tamanhoX)
+      .fill(1)
+      .map((data, index) => index);
   }
 
   arrastouCarta($event: DragEvent, carta: Carta, indexCarta: number) {
@@ -35,6 +38,9 @@ export class TabuleiroComponent implements OnInit {
     const x = Number(x1);
     const y = Number(y1);
 
+    if (isNaN(x) || isNaN(y)) {
+      return;
+    }
     this.mao.splice(indexCarta, 1);
     const jogada: Jogada = { carta, coordenada: { x, y } };
 

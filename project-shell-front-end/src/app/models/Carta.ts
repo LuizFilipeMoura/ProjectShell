@@ -5,6 +5,7 @@ export class Carta{
   vida?: number;
   efeito?: string;
   tipo?: TIPO;
+  tooltip: string;
   style?: any;
 }
 export enum TIPO {

@@ -50,9 +50,12 @@ const io = socket(server, {
     credentials: true,
   },
 });
-
+let i = 0;
 io.on("connection", async (socket) => {
-  console.log("conectaram?");
+
+  setTimeout( () => {
+    socket.emit('definirCampo', i++)
+  }, 3000)
   socket.on("jogouCarta", (jogada) => {
     console.log("jogou carta");
     io.emit("jogouCarta", jogada);

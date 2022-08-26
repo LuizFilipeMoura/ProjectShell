@@ -2,12 +2,30 @@ import { Injectable } from '@angular/core';
 import { Carta, TIPO } from '../models/Carta';
 import { Jogada } from '../models/Jogada';
 
+export enum CELULA {
+  amiga,
+  inimiga,
+  neutra,
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class TabuleiroService {
   grid: Carta[][] = [];
-  constructor() {}
+  tamanhoX = 7;
+  tamanhoY = 5;
+
+  campoAmigo: CELULA[] = [];
+
+  constructor() {
+    for (let x = 0; x < this.tamanhoX; x++) {
+      this.grid[x] = [];
+      for (let y = 0; y < this.tamanhoY; y++) {
+        this.grid[x][y] = new Carta();
+      }
+    }
+  }
 
   aplicarJogada(jogada: Jogada) {
     const { x, y } = jogada.coordenada;
@@ -19,7 +37,18 @@ export class TabuleiroService {
     if (jogada.carta.tipo === TIPO.efeito) {
       const carta = this.grid[x][y];
       eval(<string>jogada.carta.efeito);
-      console.log(carta)
+    }
+    this.verificaMorte();
+  }
+
+  private verificaMorte() {
+    for (let x = 0; x < this.tamanhoX; x++) {
+      for (let y = 0; y < this.tamanhoY; y++) {
+        const carta: any = this.grid[x][y];
+        if (carta.tipo == TIPO.unidade && carta.vida <= 0) {
+          this.grid[x][y] = new Carta();
+        }
+      }
     }
   }
 }

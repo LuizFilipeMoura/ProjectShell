@@ -3,7 +3,9 @@
   width: 100px;
   height: 100px;
 }
-.carta{
-  border: 1px solid red;
-  background: red;
+.celulaAmiga{
+  border: 2px solid green;
+}
+.celulaInimiga{
+  border: 2px solid red;
 }
