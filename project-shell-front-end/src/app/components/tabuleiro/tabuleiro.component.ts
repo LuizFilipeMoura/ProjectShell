@@ -37,12 +37,12 @@ export class TabuleiroComponent implements OnInit {
     let [x1, y1] = elements.item(elements.length - 1).id;
     const x = Number(x1);
     const y = Number(y1);
+    const jogada: Jogada = { carta, coordenada: { x, y } };
 
-    if (isNaN(x) || isNaN(y)) {
+    if (isNaN(x) || isNaN(y) || !this.tabuleiroService.jogadaValida(jogada)) {
       return;
     }
     this.mao.splice(indexCarta, 1);
-    const jogada: Jogada = { carta, coordenada: { x, y } };
 
     this.socketService.jogarCarta(jogada);
   }

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Carta, TIPO } from '../models/Carta';
 import { Jogada } from '../models/Jogada';
+import axios from "axios";
+import {environment} from "../../environments/environment";
 
 export enum CELULA {
   amiga,
@@ -50,5 +52,11 @@ export class TabuleiroService {
         }
       }
     }
+  }
+
+  async jogadaValida(jogada: Jogada) {
+    const a = await axios.post(environment.apiUrl + '/tabuleiro/validar', jogada)
+    console.log(a)
+    return false;
   }
 }
