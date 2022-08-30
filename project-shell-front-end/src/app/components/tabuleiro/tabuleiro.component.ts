@@ -4,6 +4,8 @@ import { SocketService } from '../../services/socket.service';
 import { deckCompleto } from '../../data/data';
 import { Jogada } from '../../models/Jogada';
 import { CELULA, TabuleiroService } from '../../services/tabuleiro.service';
+import {MatDialog} from "@angular/material/dialog";
+import {ModalRoomComponent} from "../modal-room/modal-room.component";
 
 @Component({
   selector: 'app-tabuleiro',
@@ -13,7 +15,8 @@ import { CELULA, TabuleiroService } from '../../services/tabuleiro.service';
 export class TabuleiroComponent implements OnInit {
   constructor(
     public socketService: SocketService,
-    public tabuleiroService: TabuleiroService
+    public tabuleiroService: TabuleiroService,
+    public dialog: MatDialog
   ) {}
 
   altura: number[] = [];
@@ -23,13 +26,16 @@ export class TabuleiroComponent implements OnInit {
 
   ngOnInit(): void {
     this.mao = deckCompleto;
-    this.socketService.conectar();
     this.altura = new Array(this.tabuleiroService.tamanhoY)
       .fill(1)
       .map((data, index) => index);
     this.largura = new Array(this.tabuleiroService.tamanhoX)
       .fill(1)
       .map((data, index) => index);
+    this.dialog.open(ModalRoomComponent).afterClosed().subscribe(next => this.entrarSala(next))
+  }
+  entrarSala(room: string){
+    this.socketService.conectar(room);
   }
 
   arrastouCarta($event: DragEvent, carta: Carta, indexCarta: number) {

@@ -9,6 +9,10 @@ export enum CELULA {
   inimiga,
   neutra,
 }
+export enum FASE {
+  planejamento,
+  acao
+}
 
 @Injectable({
   providedIn: 'root',

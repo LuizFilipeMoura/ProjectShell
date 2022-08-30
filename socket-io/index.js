@@ -6,7 +6,6 @@ const assembleias = {};
 const express = require("express");
 const socket = require("socket.io");
 
-let TEN_MEETINGS_API = "https://dev.tenmeetings.com.br/";
 // App setup
 const PORT = 3007;
 const app = express();
@@ -41,6 +40,16 @@ const post = async (url, jwt) => {
   // console.log(resposta);
 };
 
+class Sala {
+  constructor(fase, room, players) {
+    this.fase = fase;
+    this.room = room;
+    this.players = players;
+  }
+}
+
+const salas = [] < Sala > [];
+
 // Socket setup
 const io = socket(server, {
   cors: {
@@ -52,16 +61,27 @@ const io = socket(server, {
 });
 let i = 0;
 io.on("connection", async (socket) => {
+  let { room } = JSON.parse(JSON.stringify(socket.request._query));
+  socket.room = room;
+  socket.join(socket.room);
+  if (!salas[room]) {
+    console.log('netr')
+    salas[room] = new Sala(1, room, 1);
+    console.log(salas[room])
+  }
+  let salaAtual = salas[room];
+  console.log(salaAtual)
 
-  setTimeout( () => {
-    socket.emit('definirCampo', i++)
-  }, 3000)
+  setTimeout(() => {
+    io.to(socket.room).emit("definirCampo", ++salaAtual.players);
+  }, 300);
   socket.on("jogouCarta", (jogada) => {
-    console.log("jogou carta");
-    io.emit("jogouCarta", jogada);
+    console.log(socket.room);
+    io.to(socket.room).emit("jogouCarta", jogada);
   });
 
   socket.on("disconnecting", () => {
+    socket.leave(socket.room);
     console.log(" saiu");
   });
 });

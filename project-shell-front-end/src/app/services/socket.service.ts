@@ -11,9 +11,14 @@ export let socket: Socket;
 export class SocketService {
   constructor(public tabuleiroService: TabuleiroService) {}
 
-  conectar() {
+  conectar(room: string = '10') {
     socket = new Socket({
       url: environment.socketUrl,
+      options: {
+        query: {
+          room,
+        },
+      },
     });
     socket.connect();
     socket.on('jogouCarta', (jogada: Jogada) => {
