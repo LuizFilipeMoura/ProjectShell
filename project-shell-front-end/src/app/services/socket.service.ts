@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 import {Socket} from 'ngx-socket-io';
 import {environment} from '../../environments/environment';
 import {Jogada} from '../models/Jogada';
-import {Espaco, TabuleiroService} from './tabuleiro.service';
+import {TabuleiroService} from './tabuleiro.service';
 import {Mao} from "../models/Mao";
 import {MaoService} from "./mao.service";
+import {Celula} from "../models/Celula";
 
 export let socket: Socket;
 
@@ -27,7 +28,7 @@ export class SocketService {
     });
     socket.connect();
     socket.emit('connection', {teste: 'asdasd'})
-    socket.on('refreshGrid', (grid: Espaco[][]) => this.tabuleiroService.refresh(grid))
+    socket.on('refreshGrid', (grid: Celula[][]) => this.tabuleiroService.refresh(grid))
     socket.on('refreshMao', (mao: Mao) => this.maoService.refresh(mao))
 
   }

@@ -1,8 +1,9 @@
 <div class="d-flex">
 
-  <div *ngFor="let linhaX of service.grid; let x = index;" class="d-flex flex-column">
-    <div *ngFor="let celula of linhaX; let y = index" class="celula">
-      {{celula ? 'AQUI' : ''}}
+  <div *ngFor="let linhaX of service.grid; let x = index;" class="d-flex flex-column-reverse">
+    <div *ngFor="let celula of linhaX; let y = index" class="celula" style="{{celula?.style}}{{celula?.minion?.style}}"
+         [id]="'' + x + y">
+      {{celula.minion ? celula.minion.titulo : ''}}
     </div>
   </div>
 

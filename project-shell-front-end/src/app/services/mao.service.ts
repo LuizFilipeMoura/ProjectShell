@@ -13,5 +13,6 @@ export class MaoService {
 
   refresh(mao: Mao) {
     this.mao = mao;
+    console.log(mao)
   }
 }

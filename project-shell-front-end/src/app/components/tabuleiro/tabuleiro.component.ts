@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Espaco, TabuleiroService} from "../../services/tabuleiro.service";
+import {TabuleiroService} from "../../services/tabuleiro.service";
 
 @Component({
   selector: 'app-tabuleiro',
@@ -8,7 +8,6 @@ import {Espaco, TabuleiroService} from "../../services/tabuleiro.service";
 })
 export class TabuleiroComponent implements OnInit {
 
-  grid: Espaco[][] = [];
 
   constructor(public service: TabuleiroService) {
   }

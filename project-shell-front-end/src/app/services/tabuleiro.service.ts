@@ -1,20 +1,18 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {Celula} from "../models/Celula";
 
-
-export class Espaco {
-  temCarta: boolean;
-}
 
 @Injectable({
   providedIn: 'root',
 })
 export class TabuleiroService {
 
-  grid:Espaco[][] = [];
+  grid: Celula[][] = [];
+
   constructor() {
   }
 
-  refresh(grid: Espaco[][]) {
+  refresh(grid: Celula[][]) {
     this.grid = grid;
   }
 }
