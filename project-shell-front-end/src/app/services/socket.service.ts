@@ -1,15 +1,20 @@
-import { Injectable } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
-import { environment } from '../../environments/environment';
-import { Jogada } from '../models/Jogada';
-import { CELULA, TabuleiroService } from './tabuleiro.service';
+import {Injectable} from '@angular/core';
+import {Socket} from 'ngx-socket-io';
+import {environment} from '../../environments/environment';
+import {Jogada} from '../models/Jogada';
+import {Espaco, TabuleiroService} from './tabuleiro.service';
+import {Mao} from "../models/Mao";
+import {MaoService} from "./mao.service";
+
 export let socket: Socket;
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class SocketService {
-  constructor(public tabuleiroService: TabuleiroService) {}
+  constructor(public tabuleiroService: TabuleiroService, public maoService: MaoService) {
+  }
 
   conectar(room: string = '10') {
     socket = new Socket({
@@ -21,29 +26,12 @@ export class SocketService {
       },
     });
     socket.connect();
-    socket.on('jogouCarta', (jogada: Jogada) => {
-      this.tabuleiroService.aplicarJogada(jogada);
-    });
-    socket.on('definirCampo', (numeroJogador: number) => {
-      if (numeroJogador % 2 === 0) {
-        this.tabuleiroService.campoAmigo = [
-          CELULA.amiga,
-          CELULA.amiga,
-          CELULA.neutra,
-          CELULA.inimiga,
-          CELULA.inimiga,
-        ];
-      } else {
-        this.tabuleiroService.campoAmigo = [
-          CELULA.inimiga,
-          CELULA.inimiga,
-          CELULA.neutra,
-          CELULA.amiga,
-          CELULA.amiga,
-        ];
-      }
-    });
+    socket.emit('connection', {teste: 'asdasd'})
+    socket.on('refreshGrid', (grid: Espaco[][]) => this.tabuleiroService.refresh(grid))
+    socket.on('refreshMao', (mao: Mao) => this.maoService.refresh(mao))
+
   }
+
   jogarCarta(jogada: Jogada) {
     socket.emit('jogouCarta', jogada);
   }

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalRoomComponent } from './modal-room.component';
+import { MaoComponent } from './mao.component';
 
-describe('ModalRoomComponent', () => {
-  let component: ModalRoomComponent;
-  let fixture: ComponentFixture<ModalRoomComponent>;
+describe('MaoComponent', () => {
+  let component: MaoComponent;
+  let fixture: ComponentFixture<MaoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModalRoomComponent ]
+      declarations: [ MaoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalRoomComponent);
+    fixture = TestBed.createComponent(MaoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

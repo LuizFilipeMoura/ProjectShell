@@ -9,12 +9,12 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import {environment} from "../environments/environment";
 import {MatTooltipModule} from "@angular/material/tooltip";
-import { ModalRoomComponent } from './components/modal-room/modal-room.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
+import { MaoComponent } from './components/mao/mao.component';
 
 const config: SocketIoConfig = {
   url: environment.socketUrl, // socket server url;
@@ -23,7 +23,7 @@ const config: SocketIoConfig = {
   }
 }
 @NgModule({
-  declarations: [AppComponent, TabuleiroComponent, ModalRoomComponent],
+  declarations: [AppComponent, TabuleiroComponent, MaoComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,11 +1,5 @@
 .celula {
-  border: 1px solid black;
   width: 100px;
   height: 100px;
-}
-.celulaAmiga{
-  border: 2px solid green;
-}
-.celulaInimiga{
-  border: 2px solid red;
+  border: 1px solid black;
 }

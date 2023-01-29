@@ -1,27 +1,10 @@
-<div *ngFor="let y of altura" class="d-flex">
-  <div
-    class="celula"
-    *ngFor="let x of largura"
-    [id]="'' + x + y"
-    [class.celulaAmiga]="tabuleiroService.campoAmigo[y] === CELULA.amiga"
-    [class.celulaNeutra]="tabuleiroService.campoAmigo[y] === CELULA.neutra"
-    [class.celulaInimiga]="tabuleiroService.campoAmigo[y] === CELULA.inimiga"
-
-    [ngStyle]="verificaCelula(x, y) ? tabuleiroService.grid[x][y].style : ''"
-  >
-    <p>{{verificaCelula(x, y) ? tabuleiroService.grid[x][y].titulo : ''}}</p>
-  </div>
-</div>
-
 <div class="d-flex">
-  <div
-    *ngFor="let carta of mao; let indexCarta = index"
-    class="celula"
-    draggable="true"
-    (dragend)="arrastouCarta($event, carta, indexCarta)"
-    [ngStyle]="carta.style"
-    [matTooltip]="carta.tooltip"
-  >
-    <p>{{carta.titulo}}</p>
+
+  <div *ngFor="let linhaX of service.grid; let x = index;" class="d-flex flex-column">
+    <div *ngFor="let celula of linhaX; let y = index" class="celula">
+      {{celula ? 'AQUI' : ''}}
+    </div>
   </div>
+
+
 </div>
